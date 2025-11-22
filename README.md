@@ -11,12 +11,14 @@ jv/
 │   │   └── java/
 │   │       └── com/
 │   │           └── practice/
-│   │               └── HelloWorld.java      # Example Java program
+│   │               ├── HelloWorld.java      # Example Java program
+│   │               └── Calculator.java      # Calculator example
 │   └── test/
 │       └── java/
 │           └── com/
 │               └── practice/
-│                   └── HelloWorldTest.java   # Example JUnit test
+│                   ├── HelloWorldTest.java   # Example JUnit test
+│                   └── CalculatorTest.java   # Calculator tests
 ├── pom.xml                                    # Maven configuration
 └── README.md                                  # This file
 ```
@@ -77,7 +79,9 @@ mvn test
 
 ## Example Usage
 
-The workspace includes a simple `HelloWorld` example to get you started:
+The workspace includes two example programs to get you started:
+
+### 1. HelloWorld - Basic Java Program
 
 ```java
 package com.practice;
@@ -100,6 +104,38 @@ With a corresponding test:
 void testGreet() {
     String result = HelloWorld.greet("Java");
     assertEquals("Hello, Java!", result);
+}
+```
+
+### 2. Calculator - Demonstrating TDD and Exception Handling
+
+```java
+package com.practice;
+
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+    
+    public double divide(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return (double) a / b;
+    }
+    // ... more methods
+}
+```
+
+With comprehensive tests including exception testing:
+
+```java
+@Test
+void testDivideByZero() {
+    Exception exception = assertThrows(ArithmeticException.class, () -> {
+        calculator.divide(10, 0);
+    });
+    assertEquals("Cannot divide by zero", exception.getMessage());
 }
 ```
 
